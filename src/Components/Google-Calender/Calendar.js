@@ -1,9 +1,8 @@
-import React, { Component,PropTypes  } from 'react'
+import React, { Component } from 'react'
 import 'antd/dist/antd.css';
 import { Calendar, Alert, Modal, Button } from 'antd';
 import moment from 'moment';
 import AddEvent from './AddEvent';
-import CalendarEventHandler from './CalendarEventHandler';
 class CalendarTask extends Component {
   state = {
     startDate: +moment(),
@@ -36,20 +35,20 @@ class CalendarTask extends Component {
     });
   };
   showModal = (value) => {
-    
+
     this.setState({
       visible: true,
     });
-    
+
 
   };
   handleOk = e => {
 
     this.setState({
       visible: false,
-      // this.state.title[date._d]=e.target.value
-
     });
+    console.log('done')
+
   };
   handleCancel = e => {
     this.setState({
@@ -61,23 +60,8 @@ class CalendarTask extends Component {
       title: event.target.value,
     });
   };
-  
-  onOkAddEventModal = (title) => {
-    
-    this.props.onNewEvent({
-      title:this.state.title,
-      start: this.state.eventStart,
-      end: this.state.eventEnd,
 
-    });
-    console.log('done')
-
-    this.setState({
-      showAddEventModal: false,
-      visible: false,
-
-    });
-  };
+ 
   onCurrentEventTimeChange = dates => {
     this.setState({
       eventStart: +dates[0],
@@ -89,14 +73,13 @@ class CalendarTask extends Component {
     const { value, selectedValue } = this.state;
     return (
       <>
-
         <Alert
           message={`You selected date: ${selectedValue && selectedValue.format('YYYY-MM-DD')}`}
         />
         <Modal
           title="Basic Modal"
           visible={this.state.visible}
-          onOk={this.onOkAddEventModal}
+          onOk={this.handleOk}
           onCancel={this.handleCancel}
           okButtonProps={{ disabled: true }}
           cancelButtonProps={{ disabled: true }}
@@ -104,7 +87,7 @@ class CalendarTask extends Component {
             <Button key="back" onClick={this.handleCancel}>
               {this.props.editMode ? 'Delete' : 'Cancel'}
             </Button>,
-            <Button  key="submit" onClick={this.onOkAddEventModal}>
+            <Button key="submit" onClick={this.handleOk}>
               {this.props.editMode ? 'Update Event' : 'Add Event'}
             </Button>,
           ]}>
@@ -118,17 +101,15 @@ class CalendarTask extends Component {
         </Modal>
         <Calendar
           data={this.getListData}
-
           onChange={this.showModal}
           value={value}
           onSelect={this.onSelect}
           onPanelChange={this.onPanelChange} />
-          <ui>
-            <li>{title}</li>
-          </ui>
-
+        <ui>
+          <li>{title}</li>
+        </ui>
       </>
-       );
+    );
   }
 }
 export default CalendarTask

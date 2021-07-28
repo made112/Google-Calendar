@@ -12,7 +12,6 @@ function AddEvent(props) {
         value={props.title}
         style={inputStyles}
         size="large"
-        autoFocus={true}
         onChange={props.onTitleChange}
       />
       <RangePicker
@@ -21,9 +20,6 @@ function AddEvent(props) {
         onChange={props.onTimeChange}
         showTime={{
           format: 'HH:mm',
-          hourStep: 1,
-         minuteStep: 30,
-          defaultValue: [moment(props.start), moment(props.end)],
         }}
         format="MMM Do, YYYY hh:mm a"
       />
