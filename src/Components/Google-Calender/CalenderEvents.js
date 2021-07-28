@@ -26,9 +26,6 @@ addNewEvent = event => {
     }));
   };
 
-fuck = ()=>{
-    console.log('khiri')
-}
 
     render() {
         const {events} = this.state;
@@ -36,7 +33,6 @@ fuck = ()=>{
         return (
             <div>
             <CalendarTask 
-            fun = {this.fuck}
             events={events}
             onNewEvent={this.addNewEvent}
             />
